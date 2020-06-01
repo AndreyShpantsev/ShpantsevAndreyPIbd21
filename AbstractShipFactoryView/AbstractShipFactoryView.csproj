@@ -148,6 +148,10 @@
       <Project>{dc6acc0c-2b32-4aae-a1da-a9229985c61e}</Project>
       <Name>AbstractShipFactoryBusinessLogic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AbstractShipFactoryFileImplement\AbstractShipFactoryFileImplement.csproj">
+      <Project>{492e4e1d-d7d9-448e-a179-ea29e855b123}</Project>
+      <Name>AbstractShipFactoryFileImplement</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AbstractShipFactoryListImplement\AbstractShipFactoryListImplement.csproj">
       <Project>{dfb03787-6194-4e73-9c7e-078485191b8f}</Project>
       <Name>AbstractShipFactoryListImplement</Name>
