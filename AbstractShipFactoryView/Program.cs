@@ -35,6 +35,8 @@ namespace AbstractShipFactoryView
             currentContainer.RegisterType<IShipLogic, ShipLogic>(new
            HierarchicalLifetimeManager());
             currentContainer.RegisterType<MainLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<ReportLogic>(new
+           HierarchicalLifetimeManager());
             return currentContainer;
         }
     }
