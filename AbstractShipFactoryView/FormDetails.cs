@@ -34,12 +34,7 @@ namespace AbstractShipFactoryView
         {
             try
             {
-                var list = logic.Read(null); if (list != null)
-                {
-                    DetailGridView.DataSource = list; DetailGridView.Columns[0].Visible = false;
-
-                    DetailGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                }
+                Program.ConfigGrid(logic.Read(null), DetailGridView);
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
@@ -52,7 +47,6 @@ namespace AbstractShipFactoryView
                 LoadData(); 
             }
         }
-
 
         private void Change_button_Click(object sender, EventArgs e)
         {

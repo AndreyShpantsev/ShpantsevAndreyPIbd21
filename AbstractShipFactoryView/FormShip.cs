@@ -33,15 +33,7 @@ namespace AbstractShipFactoryView
         {
             try
             {
-                if (shipDetails != null)
-                {
-                    dataGridViewShip.Rows.Clear();
-                    foreach (var pc in shipDetails)
-                    {
-                        dataGridViewShip.Rows.Add(new object[] { pc.Key, pc.Value.Item1,
-                            pc.Value.Item2 });
-                    }
-                }
+                Program.ConfigGrid(logic.Read(null), dataGridViewShip);
             }
             catch (Exception ex)
             {
