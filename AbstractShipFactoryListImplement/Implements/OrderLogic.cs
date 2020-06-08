@@ -12,24 +12,23 @@ namespace AbstractShipFactoryListImplement.Implements
 {
     public class OrderLogic : IOrderLogic
     {
-        DataListSingleton source;
+        private readonly DataListSingleton source;
+
         public OrderLogic()
         {
             source = DataListSingleton.GetInstance();
         }
+
         public void CreateOrUpdate(OrderBindingModel model)
         {
-            Order tempOrder = model.Id.HasValue ? null : new Order
-            {
-                Id = 1
-            };
+            Order tempOrder = model.Id.HasValue ? null : new Order { Id = 1 };
             foreach (var order in source.Orders)
             {
                 if (!model.Id.HasValue && order.Id >= tempOrder.Id)
                 {
                     tempOrder.Id = order.Id + 1;
                 }
-                else if (model.Id.HasValue && order.Id == model.Id)
+                else if (model.Id.HasValue && model.Id == order.Id)
                 {
                     tempOrder = order;
                 }
@@ -47,9 +46,10 @@ namespace AbstractShipFactoryListImplement.Implements
                 source.Orders.Add(CreateModel(model, tempOrder));
             }
         }
+
         public void Delete(OrderBindingModel model)
         {
-            for (int i = 0; i < source.Orders.Count; ++i)
+            for (int i = 0; i < source.Orders.Count; i++)
             {
                 if (source.Orders[i].Id == model.Id.Value)
                 {
@@ -59,6 +59,7 @@ namespace AbstractShipFactoryListImplement.Implements
             }
             throw new Exception("Заказ не найден");
         }
+
         public List<OrderViewModel> Read(OrderBindingModel model)
         {
             List<OrderViewModel> result = new List<OrderViewModel>();
@@ -66,7 +67,10 @@ namespace AbstractShipFactoryListImplement.Implements
             {
                 if (model != null)
                 {
-                    if (order.Id == model.Id)
+                    if (order.Id == model.Id.Value
+                    || order.DateCreate >= model.DateFrom.Value
+                    && order.DateCreate <= model.DateTo.Value
+                    || model.ClientId.HasValue && order.ClientId == model.ClientId)
                     {
                         result.Add(CreateViewModel(order));
                         break;
@@ -77,9 +81,11 @@ namespace AbstractShipFactoryListImplement.Implements
             }
             return result;
         }
+
         private Order CreateModel(OrderBindingModel model, Order order)
         {
             order.ShipId = model.ShipId;
+            order.ClientId = model.ClientId.Value;
             order.Count = model.Count;
             order.Sum = model.Sum;
             order.Status = model.Status;
@@ -87,26 +93,37 @@ namespace AbstractShipFactoryListImplement.Implements
             order.DateImplement = model.DateImplement;
             return order;
         }
+
         private OrderViewModel CreateViewModel(Order order)
         {
-            string shipName = "";
+            string shipname = "";
             foreach (var ship in source.Ships)
             {
                 if (ship.Id == order.ShipId)
                 {
-                    shipName = ship.ShipName;
+                    shipname = ship.ShipName;
+                }
+            }
+            string clientLogin = "";
+            foreach (var client in source.Clients)
+            {
+                if (client.Id == order.ClientId)
+                {
+                    clientLogin = client.Login;
                 }
             }
             return new OrderViewModel
             {
                 Id = order.Id,
                 ShipId = order.ShipId,
-                ShipName = shipName, 
+                ClientId = order.ClientId,
+                ClientLogin = clientLogin,
+                ShipName = shipname,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = order.Status,
                 DateCreate = order.DateCreate,
-                DateImplement = order.DateImplement,
+                DateImplement = order.DateImplement
             };
         }
     }

@@ -21,6 +21,7 @@ namespace AbstractShipFactoryBusinessLogic.BusinessLogics
             orderLogic.CreateOrUpdate(new OrderBindingModel 
             { 
                 ShipId = model.ShipId,
+                ClientId = model.ClientId,
                 Count = model.Count, 
                 Sum = model.Sum, 
                 DateCreate = DateTime.Now,
