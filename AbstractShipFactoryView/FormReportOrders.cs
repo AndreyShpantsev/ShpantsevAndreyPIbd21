@@ -72,14 +72,13 @@ namespace AbstractShipFactoryView
                     dataGridViewReport.Rows.Clear();
                     foreach (var date in dict)
                     {
-                        decimal GenSum = 0;
                         dataGridViewReport.Rows.Add(new object[] { date.DateCreate, "", "" });
 
                         foreach (var order in date.OrdersSum)
                         {
                             dataGridViewReport.Rows.Add(new object[] { "", order.Item1, order.Item2 });
                         }
-                        dataGridViewReport.Rows.Add(new object[] { "Итого:", "", GenSum });
+                        dataGridViewReport.Rows.Add(new object[] { "Итого:", "", date.Sum.ToString() });
                     }
                 }
             }

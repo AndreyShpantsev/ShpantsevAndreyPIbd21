@@ -10,6 +10,7 @@ namespace AbstractShipFactoryBusinessLogic.BusinessLogics
     public class MainLogic
     {
         private readonly IOrderLogic orderLogic;
+        private readonly object locker = new object();
 
         public MainLogic(IOrderLogic orderLogic) 
         {
@@ -30,78 +31,94 @@ namespace AbstractShipFactoryBusinessLogic.BusinessLogics
         }
 
         public void TakeOrderInWork(ChangeStatusBindingModel model) 
-        { 
-            var order = orderLogic.Read(new OrderBindingModel 
-            { 
-                Id = model.OrderId 
-            })?[0]; 
-            if (order == null) 
-            { 
-                throw new Exception("Не найден заказ"); 
-            } 
-            if (order.Status != OrderStatus.Принят) 
-            { 
-                throw new Exception("Заказ не в статусе \"Принят\""); 
-            } 
-            orderLogic.CreateOrUpdate(new OrderBindingModel 
-            { 
-                Id = order.Id, 
-                ShipId = order.ShipId,
-                Count = order.Count,
-                Sum = order.Sum, 
-                DateCreate = order.DateCreate,
-                DateImplement = DateTime.Now,
-                Status = OrderStatus.Выполняется 
-            });
+        {
+            lock (locker)
+            {
+                var order = orderLogic.Read(new OrderBindingModel
+                {
+                    Id = model.OrderId
+                })?[0];
+                if (order == null)
+                {
+                    throw new Exception("Не найден заказ");
+                }
+                if (order.Status != OrderStatus.Принят)
+                {
+                    throw new Exception("Заказ не в статусе \"Принят\"");
+                }
+                if (order.ImplementerId.HasValue)
+                {
+                    throw new Exception("У заказа уже есть исполнитель");
+                }
+                orderLogic.CreateOrUpdate(new OrderBindingModel
+                {
+                    Id = order.Id,
+                    ClientId = order.ClientId,
+                    ImplementerId = model.ImplementerId,
+                    ShipId = order.ShipId,
+                    Count = order.Count,
+                    Sum = order.Sum,
+                    DateCreate = order.DateCreate,
+                    DateImplement = DateTime.Now,
+                    Status = OrderStatus.Выполняется
+                });
+            }
         }
 
         public void FinishOrder(ChangeStatusBindingModel model)
-        { 
-            var order = orderLogic.Read(new OrderBindingModel { Id = model.OrderId 
-            })?[0]; 
-            if (order == null) 
-            { 
-                throw new Exception("Не найден заказ"); 
-            } 
-            if (order.Status != OrderStatus.Выполняется) 
-            { 
-                throw new Exception("Заказ не в статусе \"Выполняется\""); 
+        {
+            var order = orderLogic.Read(new OrderBindingModel
+            {
+                Id = model.OrderId
+            })?[0];
+            if (order == null)
+            {
+                throw new Exception("Не найден заказ");
             }
-            orderLogic.CreateOrUpdate(new OrderBindingModel 
-            { 
-                Id = order.Id, 
-                ShipId = order.ShipId, 
-                Count = order.Count, 
+            if (order.Status != OrderStatus.Выполняется)
+            {
+                throw new Exception("Заказ не в статусе \"Выполняется\"");
+            }
+            orderLogic.CreateOrUpdate(new OrderBindingModel
+            {
+                Id = order.Id,
+                ClientId = order.ClientId,
+                ShipId = order.ShipId,
+                ImplementerId = order.ImplementerId,
+                Count = order.Count,
                 Sum = order.Sum,
-                DateCreate = order.DateCreate, 
-                DateImplement = order.DateImplement, 
-                Status = OrderStatus.Готов 
-            }); 
+                DateCreate = order.DateCreate,
+                DateImplement = order.DateImplement,
+                Status = OrderStatus.Готов
+            });
         }
 
         public void PayOrder(ChangeStatusBindingModel model)
-        { 
-            var order = orderLogic.Read(new OrderBindingModel { Id = model.OrderId 
-            })?[0]; 
-            if (order == null) 
-            { 
+        {
+            var order = orderLogic.Read(new OrderBindingModel
+            {
+                Id = model.OrderId
+            })?[0];
+            if (order == null)
+            {
                 throw new Exception("Не найден заказ");
-            } 
-            if (order.Status != OrderStatus.Готов) 
+            }
+            if (order.Status != OrderStatus.Готов)
             {
                 throw new Exception("Заказ не в статусе \"Готов\"");
-            } 
-            orderLogic.CreateOrUpdate(new OrderBindingModel 
-            { 
+            }
+            orderLogic.CreateOrUpdate(new OrderBindingModel
+            {
                 Id = order.Id,
+                ClientId = order.ClientId,
+                ImplementerId = order.ImplementerId,
                 ShipId = order.ShipId,
                 Count = order.Count,
                 Sum = order.Sum,
-                DateCreate = order.DateCreate, 
+                DateCreate = order.DateCreate,
                 DateImplement = order.DateImplement,
-                Status = OrderStatus.Оплачен 
-            }); 
+                Status = OrderStatus.Оплачен
+            });
         }
     }
-
 }

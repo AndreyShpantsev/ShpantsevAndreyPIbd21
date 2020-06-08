@@ -11,6 +11,8 @@ namespace AbstractShipFactoryBusinessLogic.BindingModels
 
         public int? ClientId { get; set; }
 
+        public int? ImplementerId { get; set; }
+
         public int ShipId { get; set; }
 
         public int Count { get; set; } 
@@ -26,5 +28,6 @@ namespace AbstractShipFactoryBusinessLogic.BindingModels
         public DateTime? DateFrom { get; set; }
 
         public DateTime? DateTo { get; set; }
+        public bool? FreeOrders { get; set; }
     }
 }

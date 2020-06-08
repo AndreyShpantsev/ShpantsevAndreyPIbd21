@@ -107,6 +107,7 @@ namespace AbstractShipFactoryView
                 logicMain.CreateOrder(new CreateOrderBindingModel
                 {
                     ShipId = Convert.ToInt32(comboBoxShip.SelectedValue),
+                    ClientId = Convert.ToInt32(comboBoxClient.SelectedValue),
                     Count = Convert.ToInt32(textBoxCount.Text),
                     Sum = Convert.ToDecimal(textBoxSum.Text)
                 });

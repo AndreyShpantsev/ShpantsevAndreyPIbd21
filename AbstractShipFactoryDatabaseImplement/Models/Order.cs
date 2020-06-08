@@ -11,6 +11,7 @@ namespace AbstractShipFactoryDatabaseImplement.Models
     {
         public int Id { get; set; }
         public int ClientId { get; set; }
+        public int? ImplementerId { get; set; }
         public int ShipId { get; set; }
         [Required]
         public int Count { get; set; }
@@ -23,5 +24,6 @@ namespace AbstractShipFactoryDatabaseImplement.Models
         public DateTime? DateImplement { get; set; }
         public virtual Ship Ship { get; set; }
         public virtual Client Client { get; set; }
+        public virtual Implementer Implementer { get; set; }
     }
 }
