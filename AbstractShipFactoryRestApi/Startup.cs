@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,9 +16,9 @@ using AbstractShipFactoryDatabaseImplement.Implements;
 
 namespace AbstractShipFactoryRestApi
 {
-    public class Startup
+    public class StartUp
     {
-        public Startup(IConfiguration configuration)
+        public StartUp(IConfiguration configuration)
         {
             Configuration = configuration;
         }
@@ -31,6 +31,7 @@ namespace AbstractShipFactoryRestApi
             services.AddTransient<IClientLogic, ClientLogic>();
             services.AddTransient<IOrderLogic, OrderLogic>();
             services.AddTransient<IShipLogic, ShipLogic>();
+            services.AddTransient<IMessageInfoLogic, MessageInfoLogic>();
             services.AddTransient<MainLogic>();
             services.AddControllers();
         }
