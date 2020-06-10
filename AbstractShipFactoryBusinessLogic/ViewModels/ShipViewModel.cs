@@ -9,11 +9,9 @@ namespace AbstractShipFactoryBusinessLogic.ViewModels
     {
         public int Id { get; set; }
 
-        [DisplayName("Название судна")] 
-        public string ShipName { get; set; }
+        [DisplayName("Название судна")] public string ShipName { get; set; }
 
-        [DisplayName("Цена")] 
-        public decimal Price { get; set; }
+        [DisplayName("Цена")] public decimal Price { get; set; }
 
         public Dictionary<int, (string, int)> ShipDetails { get; set; }
     }
