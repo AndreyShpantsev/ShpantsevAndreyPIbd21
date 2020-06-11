@@ -10,10 +10,12 @@ namespace AbstractShipFactoryBusinessLogic.BusinessLogics
     public class MainLogic
     {
         private readonly IOrderLogic orderLogic;
+        private readonly IStorageLogic storageLogic;
 
-        public MainLogic(IOrderLogic orderLogic) 
+        public MainLogic(IOrderLogic orderLogic, IStorageLogic storageLogic) 
         {
-            this.orderLogic = orderLogic; 
+            this.orderLogic = orderLogic;
+            this.storageLogic = storageLogic;
         }
 
         public void CreateOrder(CreateOrderBindingModel model) 
@@ -41,7 +43,11 @@ namespace AbstractShipFactoryBusinessLogic.BusinessLogics
             if (order.Status != OrderStatus.Принят) 
             { 
                 throw new Exception("Заказ не в статусе \"Принят\""); 
-            } 
+            }
+            if (!storageLogic.CheckDetailsAvailability(order.ShipId, order.Count))
+            {
+                throw new Exception("На складах не хватает компонентов");
+            }
             orderLogic.CreateOrUpdate(new OrderBindingModel 
             { 
                 Id = order.Id, 
@@ -52,6 +58,7 @@ namespace AbstractShipFactoryBusinessLogic.BusinessLogics
                 DateImplement = DateTime.Now,
                 Status = OrderStatus.Выполняется 
             });
+            storageLogic.RemoveFromStorage(order.ShipId, order.Count);
         }
 
         public void FinishOrder(ChangeStatusBindingModel model)
@@ -101,6 +108,10 @@ namespace AbstractShipFactoryBusinessLogic.BusinessLogics
                 Status = OrderStatus.Оплачен 
             }); 
         }
-    }
 
+        public void FillStorage(StorageDetailBindingModel model)
+        {
+            storageLogic.FillStorage(model);
+        }
+    }
 }
