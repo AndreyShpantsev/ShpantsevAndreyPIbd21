@@ -43,10 +43,13 @@
     <Compile Include="Implements\DetailLogic.cs" />
     <Compile Include="Implements\OrderLogic.cs" />
     <Compile Include="Implements\ShipLogic.cs" />
+    <Compile Include="Implements\StorageLogic.cs" />
     <Compile Include="Models\Detail.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Ship.cs" />
     <Compile Include="Models\ShipDetail.cs" />
+    <Compile Include="Models\Storage.cs" />
+    <Compile Include="Models\StorageDetail.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AbstractShipFactoryBusinessLogic\AbstractShipFactoryBusinessLogic.csproj">

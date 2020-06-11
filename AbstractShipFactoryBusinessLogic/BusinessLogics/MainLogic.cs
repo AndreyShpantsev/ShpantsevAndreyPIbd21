@@ -10,10 +10,12 @@ namespace AbstractShipFactoryBusinessLogic.BusinessLogics
     public class MainLogic
     {
         private readonly IOrderLogic orderLogic;
+        private readonly IStorageLogic storageLogic;
 
-        public MainLogic(IOrderLogic orderLogic) 
+        public MainLogic(IOrderLogic orderLogic, IStorageLogic storageLogic) 
         {
-            this.orderLogic = orderLogic; 
+            this.orderLogic = orderLogic;
+            this.storageLogic = storageLogic;
         }
 
         public void CreateOrder(CreateOrderBindingModel model) 
@@ -101,6 +103,10 @@ namespace AbstractShipFactoryBusinessLogic.BusinessLogics
                 Status = OrderStatus.Оплачен 
             }); 
         }
-    }
 
+        public void FillStorage(StorageDetailBindingModel model)
+        {
+            storageLogic.FillStorage(model);
+        }
+    }
 }
