@@ -16,10 +16,14 @@ namespace AbstractShipFactoryFileImplement
         private readonly string OrderFileName = "Order.xml";
         private readonly string ShipFileName = "Ship.xml";
         private readonly string ShipDetailFileName = "ShipDetail.xml";
+        private readonly string StorageFileName = "Storage.xml";
+        private readonly string StorageDetailFileName = "StorageDetail.xml";
         public List<Detail> Details { get; set; }
         public List<Order> Orders { get; set; }
         public List<Ship> Ships { get; set; }
         public List<ShipDetail> ShipDetails { get; set; }
+        public List<Storage> Storages { set; get; }
+        public List<StorageDetail> StorageDetails { set; get; }
 
         private ShipFactoryFileDataListSingleton()
         {
@@ -27,6 +31,8 @@ namespace AbstractShipFactoryFileImplement
             Orders = LoadOrders();
             Ships = LoadShips();
             ShipDetails = LoadShipDetails();
+            Storages = LoadStorages();
+            StorageDetails = LoadStorageDetails();
         }
         public static ShipFactoryFileDataListSingleton GetInstance()
         {
@@ -42,6 +48,8 @@ namespace AbstractShipFactoryFileImplement
             SaveOrders();
             SaveShips();
             SaveShipDetails();
+            SaveStorages();
+            SaveStorageBillets();
         }
 
         private List<Detail> LoadDetails()
@@ -126,6 +134,45 @@ namespace AbstractShipFactoryFileImplement
             }
             return list;
         }
+        private List<Storage> LoadStorages()
+        {
+            var list = new List<Storage>();
+            if (File.Exists(StorageFileName))
+            {
+                XDocument xDocument = XDocument.Load(StorageFileName);
+                var xElements = xDocument.Root.Elements("Storage").ToList();
+                foreach (var elem in xElements)
+                {
+                    list.Add(new Storage()
+                    {
+                        Id = Convert.ToInt32(elem.Attribute("Id").Value),
+                        StorageName = elem.Element("StorageName").Value.ToString()
+                    });
+                }
+            }
+            return list;
+        }
+
+        private List<StorageDetail> LoadStorageDetails()
+        {
+            var list = new List<StorageDetail>();
+            if (File.Exists(StorageDetailFileName))
+            {
+                XDocument xDocument = XDocument.Load(StorageDetailFileName);
+                var xElements = xDocument.Root.Elements("StorageDetail").ToList();
+                foreach (var elem in xElements)
+                {
+                    list.Add(new StorageDetail()
+                    {
+                        Id = Convert.ToInt32(elem.Attribute("Id").Value),
+                        DetailId = Convert.ToInt32(elem.Element("DetailId").Value),
+                        StorageId = Convert.ToInt32(elem.Element("StorageId").Value),
+                        Count = Convert.ToInt32(elem.Element("Count").Value)
+                    });
+                }
+            }
+            return list;
+        }
         private void SaveDetails()
         {
             if (Details != null)
@@ -192,6 +239,38 @@ namespace AbstractShipFactoryFileImplement
                 }
                 XDocument xDocument = new XDocument(xElement);
                 xDocument.Save(ShipDetailFileName);
+            }
+        }
+        private void SaveStorages()
+        {
+            if (Storages != null)
+            {
+                var xElement = new XElement("Storages");
+                foreach (var elem in Storages)
+                {
+                    xElement.Add(new XElement("Storage",
+                        new XAttribute("Id", elem.Id),
+                        new XElement("StorageName", elem.StorageName)));
+                }
+                XDocument xDocument = new XDocument(xElement);
+                xDocument.Save(StorageFileName);
+            }
+        }
+        private void SaveStorageBillets()
+        {
+            if (StorageDetails != null)
+            {
+                var xElement = new XElement("StorageDetails");
+                foreach (var elem in StorageDetails)
+                {
+                    xElement.Add(new XElement("StorageDetail",
+                        new XAttribute("Id", elem.Id),
+                        new XElement("DetailId", elem.DetailId),
+                        new XElement("StorageId", elem.StorageId),
+                        new XElement("Count", elem.Count)));
+                }
+                XDocument xDocument = new XDocument(xElement);
+                xDocument.Save(StorageDetailFileName);
             }
         }
     }
