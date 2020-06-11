@@ -5,6 +5,7 @@ using AbstractShipFactoryListImplement.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace AbstractShipFactoryListImplement.Implements
 {
@@ -156,6 +157,39 @@ namespace AbstractShipFactoryListImplement.Implements
                 }
             }
             throw new Exception("Элемент не найден");
+        }
+        public bool CheckDetailsAvailability(int ShipId, int ShipsCount)
+        {
+            bool result = true;
+            var ShipDetails = source.ShipDetails.Where(x => x.ShipId == ShipId);
+            if (ShipDetails.Count() == 0) return false;
+            foreach (var elem in ShipDetails)
+            {
+                int count = 0;
+                var storageDetails = source.StorageDetails.FindAll(x => x.DetailId == elem.DetailId);
+                count = storageDetails.Sum(x => x.Count);
+                if (count < elem.Count * ShipsCount)
+                    return false;
+            }
+            return result;
+        }
+        public void RemoveFromStorage(int ShipId, int ShipsCount)
+        {
+            var ShipDetails = source.ShipDetails.Where(x => x.ShipId == ShipId);
+            if (ShipDetails.Count() == 0) return;
+            foreach (var elem in ShipDetails)
+            {
+                int left = elem.Count * ShipsCount;
+                var storageDetails = source.StorageDetails.FindAll(x => x.DetailId == elem.DetailId);
+                foreach (var rec in storageDetails)
+                {
+                    int toRemove = left > rec.Count ? rec.Count : left;
+                    rec.Count -= toRemove;
+                    left -= toRemove;
+                    if (left == 0) break;
+                }
+            }
+            return;
         }
         public void FillStorage(StorageDetailBindingModel model)
         {

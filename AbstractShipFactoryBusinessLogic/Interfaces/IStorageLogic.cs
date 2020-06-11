@@ -14,5 +14,7 @@ namespace AbstractShipFactoryBusinessLogic.Interfaces
         void UpdElement(StorageBindingModel model);
         void DelElement(int id);
         void FillStorage(StorageDetailBindingModel model);
+        bool CheckDetailsAvailability(int shipId, int shipsCount);
+        void RemoveFromStorage(int shipId, int shipsCount);
     }
 }

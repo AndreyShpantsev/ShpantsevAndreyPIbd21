@@ -43,7 +43,11 @@ namespace AbstractShipFactoryBusinessLogic.BusinessLogics
             if (order.Status != OrderStatus.Принят) 
             { 
                 throw new Exception("Заказ не в статусе \"Принят\""); 
-            } 
+            }
+            if (!storageLogic.CheckDetailsAvailability(order.ShipId, order.Count))
+            {
+                throw new Exception("На складах не хватает компонентов");
+            }
             orderLogic.CreateOrUpdate(new OrderBindingModel 
             { 
                 Id = order.Id, 
@@ -54,6 +58,7 @@ namespace AbstractShipFactoryBusinessLogic.BusinessLogics
                 DateImplement = DateTime.Now,
                 Status = OrderStatus.Выполняется 
             });
+            storageLogic.RemoveFromStorage(order.ShipId, order.Count);
         }
 
         public void FinishOrder(ChangeStatusBindingModel model)
