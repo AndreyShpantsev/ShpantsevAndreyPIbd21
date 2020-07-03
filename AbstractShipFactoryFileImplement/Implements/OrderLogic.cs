@@ -61,6 +61,7 @@ namespace AbstractShipFactoryFileImplement.Implements
         public List<OrderViewModel> Read(OrderBindingModel model)
         {
             return source.Orders
+
            .Where(rec => model == null || rec.Id == model.Id
            || rec.DateCreate >= model.DateFrom.Value
            && rec.DateCreate <= model.DateTo.Value
