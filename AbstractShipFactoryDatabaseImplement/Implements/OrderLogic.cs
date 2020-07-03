@@ -61,8 +61,11 @@ model.Id);
             using (var context = new AbstractShipFactoryDatabase())
             {
                 return context.Orders
-            .Include(rec => rec.Ship)
-            .Where(rec => model == null || rec.Id == model.Id)
+            .Where(
+                    rec => model == null
+                    || (rec.Id == model.Id)
+                    || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
+                )
             .Select(rec => new OrderViewModel
             {
                 Id = rec.Id,
