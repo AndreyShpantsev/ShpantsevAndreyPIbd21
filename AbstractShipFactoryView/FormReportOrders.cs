@@ -31,7 +31,7 @@ namespace AbstractShipFactoryView
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    if (dateTimePicker1.Value.Date >= dateTimePicker2.Value.Date)
+                    if (dateTimePickerFrom.Value.Date >= dateTimePickerTo.Value.Date)
                     {
                         MessageBox.Show("Дата начала должна быть меньше даты окончания", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
@@ -41,8 +41,8 @@ namespace AbstractShipFactoryView
                         logic.SaveOrdersToExcelFile(new ReportBindingModel
                         {
                             FileName = dialog.FileName,
-                            DateFrom = dateTimePicker1.Value.Date,
-                            DateTo = dateTimePicker2.Value.Date,
+                            DateFrom = dateTimePickerFrom.Value.Date,
+                            DateTo = dateTimePickerTo.Value.Date,
                         });
                         MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
@@ -58,7 +58,7 @@ namespace AbstractShipFactoryView
 
         private void buttonMakeOrder_Click(object sender, EventArgs e)
         {
-            if (dateTimePicker1.Value.Date >= dateTimePicker2.Value.Date)
+            if (dateTimePickerFrom.Value.Date >= dateTimePickerTo.Value.Date)
             {
                 MessageBox.Show("Дата начала должна быть меньше даты окончания", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -66,7 +66,7 @@ namespace AbstractShipFactoryView
 
             try
             {
-                var dict = logic.GetOrders(new ReportBindingModel { DateFrom = dateTimePicker1.Value.Date, DateTo = dateTimePicker2.Value.Date });
+                var dict = logic.GetOrders(new ReportBindingModel { DateFrom = dateTimePickerFrom.Value.Date, DateTo = dateTimePickerTo.Value.Date });
                 if (dict != null)
                 {
                     dataGridViewReport.Rows.Clear();
