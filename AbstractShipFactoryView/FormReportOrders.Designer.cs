@@ -31,11 +31,7 @@
             this.dataGridViewReport = new System.Windows.Forms.DataGridView();
             this.buttonSaveToExcel = new System.Windows.Forms.Button();
             this.buttonMakeOrder = new System.Windows.Forms.Button();
-<<<<<<< HEAD
-            this.dataTimePickerFrom = new System.Windows.Forms.DateTimePicker();
-=======
             this.dateTimePickerFrom = new System.Windows.Forms.DateTimePicker();
->>>>>>> 5fac073aef60ffe1675fa0589ad562aa5bbb73a1
             this.dateTimePickerTo = new System.Windows.Forms.DateTimePicker();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -77,11 +73,10 @@
             // 
             // dateTimePickerFrom
             // 
-<<<<<<< HEAD
-            this.dataTimePickerFrom.Location = new System.Drawing.Point(13, 12);
-            this.dataTimePickerFrom.Name = "dateTimePicker1";
-            this.dataTimePickerFrom.Size = new System.Drawing.Size(200, 20);
-            this.dataTimePickerFrom.TabIndex = 3;
+            this.dateTimePickerFrom.Location = new System.Drawing.Point(13, 12);
+            this.dateTimePickerFrom.Name = "dateTimePicker1";
+            this.dateTimePickerFrom.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerFrom.TabIndex = 3;
             // 
             // dateTimePickerTo
             // 
@@ -89,19 +84,6 @@
             this.dateTimePickerTo.Name = "dateTimePicker2";
             this.dateTimePickerTo.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerTo.TabIndex = 0;
-=======
-            this.dateTimePicker1.Location = new System.Drawing.Point(13, 12);
-            this.dateTimePicker1.Name = "dateTimePickerFrom";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker1.TabIndex = 3;
-            // 
-            // dateTimePickerTo
-            // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(13, 39);
-            this.dateTimePicker2.Name = "dateTimePickerTo";
-            this.dateTimePicker2.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker2.TabIndex = 0;
->>>>>>> 5fac073aef60ffe1675fa0589ad562aa5bbb73a1
             // 
             // Column1
             // 
@@ -123,13 +105,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(783, 537);
-<<<<<<< HEAD
-            this.Controls.Add(this.dateTimePickerTo);
-            this.Controls.Add(this.dataTimePickerFrom);
-=======
             this.Controls.Add(this.dateTimePickerFrom);
             this.Controls.Add(this.dateTimePickerTo);
->>>>>>> 5fac073aef60ffe1675fa0589ad562aa5bbb73a1
             this.Controls.Add(this.buttonMakeOrder);
             this.Controls.Add(this.buttonSaveToExcel);
             this.Controls.Add(this.dataGridViewReport);
@@ -137,7 +114,6 @@
             this.Text = "Отчёт по заказам";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReport)).EndInit();
             this.ResumeLayout(false);
-
         }
 
         #endregion
