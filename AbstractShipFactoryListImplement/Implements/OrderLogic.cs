@@ -67,7 +67,10 @@ namespace AbstractShipFactoryListImplement.Implements
             {
                 if (model != null)
                 {
-                    if (order.Id == model.Id || (model.DateFrom.HasValue && model.DateTo.HasValue && order.DateCreate >= model.DateFrom && order.DateCreate <= model.DateTo))
+                    if (order.Id == model.Id.Value
+                    || order.DateCreate >= model.DateFrom.Value
+                    && order.DateCreate <= model.DateTo.Value
+                    || model.ClientId.HasValue && order.ClientId == model.ClientId)
                     {
                         result.Add(CreateViewModel(order));
                         break;
