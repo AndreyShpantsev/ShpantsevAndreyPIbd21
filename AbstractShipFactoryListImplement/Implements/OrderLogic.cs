@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AbstractShipFactoryBusinessLogic.BindingModels;
+using AbstractShipFactoryBusinessLogic.Enums;
 using AbstractShipFactoryBusinessLogic.Interfaces;
 using AbstractShipFactoryBusinessLogic.ViewModels;
 using AbstractShipFactoryListImplement.Models;
@@ -70,7 +71,9 @@ namespace AbstractShipFactoryListImplement.Implements
                     if (order.Id == model.Id.Value
                     || order.DateCreate >= model.DateFrom.Value
                     && order.DateCreate <= model.DateTo.Value
-                    || model.ClientId.HasValue && order.ClientId == model.ClientId)
+                    || model.ClientId.HasValue && order.ClientId == model.ClientId
+                    || model.FreeOrders.HasValue && model.FreeOrders.Value
+                    || model.ImplementerId.HasValue && order.ImplementerId == model.ImplementerId && order.Status == OrderStatus.Выполняется)
                     {
                         result.Add(CreateViewModel(order));
                         break;
@@ -86,6 +89,7 @@ namespace AbstractShipFactoryListImplement.Implements
         {
             order.ShipId = model.ShipId;
             order.ClientId = model.ClientId.Value;
+            order.ImplementerId = model.ImplementerId;
             order.Count = model.Count;
             order.Sum = model.Sum;
             order.Status = model.Status;

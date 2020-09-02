@@ -16,6 +16,7 @@ namespace AbstractShipFactoryListImplement
         public List<Ship> Ships { get; set; }
         public List<ShipDetail> ShipDetails { get; set; }
         public List<Client> Clients { get; set; }
+        public List<Implementer> Implementers { get; set; }
 
         private DataListSingleton()
         { 
@@ -24,6 +25,7 @@ namespace AbstractShipFactoryListImplement
             Ships = new List<Ship>();
             ShipDetails = new List<ShipDetail>();
             Clients = new List<Client>();
+            Implementers = new List<Implementer>();
         }
         public static DataListSingleton GetInstance()
         {

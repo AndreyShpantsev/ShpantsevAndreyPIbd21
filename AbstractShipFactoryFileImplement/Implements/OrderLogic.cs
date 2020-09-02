@@ -1,4 +1,5 @@
 ﻿using AbstractShipFactoryBusinessLogic.BindingModels;
+using AbstractShipFactoryBusinessLogic.Enums;
 using AbstractShipFactoryBusinessLogic.Interfaces;
 using AbstractShipFactoryBusinessLogic.ViewModels;
 using AbstractShipFactoryFileImplement.Models;
@@ -36,6 +37,7 @@ namespace AbstractShipFactoryFileImplement.Implements
             }
             element.ShipId = model.ShipId;
             element.ClientId = model.ClientId.Value;
+            element.ImplementerId = model.ImplementerId;
             element.Count = model.Count;
             element.Sum = model.Sum;
             element.Status = model.Status;
@@ -59,17 +61,25 @@ namespace AbstractShipFactoryFileImplement.Implements
         public List<OrderViewModel> Read(OrderBindingModel model)
         {
             return source.Orders
-            .Where(rec => model == null || rec.Id == model.Id
+
+           .Where(rec => model == null || rec.Id == model.Id
            || rec.DateCreate >= model.DateFrom.Value
            && rec.DateCreate <= model.DateTo.Value
-           || model.ClientId.HasValue && model.ClientId == rec.ClientId)
-            .Select(rec => new OrderViewModel
-            {
+           || model.ClientId.HasValue && model.ClientId == rec.ClientId
+           || model.FreeOrders.HasValue && model.FreeOrders.Value &&
+           !rec.ImplementerId.HasValue
+           || model.ImplementerId.HasValue && rec.ImplementerId ==
+            model.ImplementerId && rec.Status == OrderStatus.Выполняется)
+           .Select(rec => new OrderViewModel
+           {
                Id = rec.Id,
                ShipId = rec.ShipId,
                ClientId = rec.ClientId,
                ClientLogin = source.Clients.FirstOrDefault(cl =>
                cl.Id == rec.Id)?.Login,
+               ImplementerId = rec.ImplementerId,
+               ImplementerFIO = source.Implementers.FirstOrDefault(recC => 
+               recC.Id == rec.ImplementerId)?.ImplementerFIO,
                ShipName = source.Ships.FirstOrDefault(mod =>
                mod.Id == rec.ShipId)?.ShipName,
                Count = rec.Count,
