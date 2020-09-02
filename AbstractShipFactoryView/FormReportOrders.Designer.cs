@@ -71,14 +71,14 @@
             this.buttonMakeOrder.UseVisualStyleBackColor = true;
             this.buttonMakeOrder.Click += new System.EventHandler(this.buttonMakeOrder_Click);
             // 
-            // dateTimePicker1
+            // dateTimePickerFrom
             // 
             this.dateTimePickerFrom.Location = new System.Drawing.Point(13, 12);
             this.dateTimePickerFrom.Name = "dateTimePicker1";
             this.dateTimePickerFrom.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerFrom.TabIndex = 3;
             // 
-            // dateTimePicker2
+            // dateTimePickerTo
             // 
             this.dateTimePickerTo.Location = new System.Drawing.Point(13, 39);
             this.dateTimePickerTo.Name = "dateTimePicker2";
@@ -114,7 +114,6 @@
             this.Text = "Отчёт по заказам";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReport)).EndInit();
             this.ResumeLayout(false);
-
         }
 
         #endregion
