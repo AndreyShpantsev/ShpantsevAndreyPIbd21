@@ -29,15 +29,7 @@ namespace AbstractShipFactoryView
         {
             try
             {
-                var list = logic.Read(null);
-                if (list != null)
-                {
-                    dataGridViewClients.DataSource = list;
-                    dataGridViewClients.Columns[0].Visible = false;
-                    dataGridViewClients.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridViewClients.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridViewClients.Columns[3].Visible = false;
-                }
+                Program.ConfigGrid(logic.Read(null), dataGridViewClients);
             }
             catch (Exception ex)
             {

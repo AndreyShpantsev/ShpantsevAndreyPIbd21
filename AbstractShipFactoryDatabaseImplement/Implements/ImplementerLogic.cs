@@ -16,7 +16,7 @@ namespace AbstractShipFactoryDatabaseImplement.Implements
             using (var context = new AbstractShipFactoryDatabase())
             {
                 Implementer element = context.Implementers.FirstOrDefault(rec =>
-                        rec.ImplementerFIO == model.ImplementerFIO && rec.Id != model.Id);
+                    rec.ImplementerFIO == model.ImplementerFIO && rec.Id != model.Id);
                 if (element != null)
                 {
                     throw new Exception("Такой исполнитель уже существует");

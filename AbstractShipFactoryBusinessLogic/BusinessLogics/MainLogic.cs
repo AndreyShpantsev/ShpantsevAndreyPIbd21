@@ -31,7 +31,7 @@ namespace AbstractShipFactoryBusinessLogic.BusinessLogics
                 DateCreate = DateTime.Now,
                 Status = OrderStatus.Принят 
             });
-            MailLogic.MailSendAsynс(new MailSendInfo
+            MailLogic.MailSendAsync(new MailSendInfo
             {
                 MailAddress = clientLogic.Read(new ClientBindingModel { Id = model.ClientId })?[0]?.Login,
                 Subject = $"Новый заказ",
@@ -71,7 +71,7 @@ namespace AbstractShipFactoryBusinessLogic.BusinessLogics
                     DateImplement = DateTime.Now,
                     Status = OrderStatus.Выполняется
                 });
-                MailLogic.MailSendAsynс(new MailSendInfo
+                MailLogic.MailSendAsync(new MailSendInfo
                 {
                     MailAddress = clientLogic.Read(new ClientBindingModel { Id = order.ClientId })?[0]?.Login,
                     Subject = $"Заказ №{order.Id}",
@@ -106,7 +106,7 @@ namespace AbstractShipFactoryBusinessLogic.BusinessLogics
                 DateImplement = order.DateImplement,
                 Status = OrderStatus.Готов
             });
-            MailLogic.MailSendAsynс(new MailSendInfo
+            MailLogic.MailSendAsync(new MailSendInfo
             {
                 MailAddress = clientLogic.Read(new ClientBindingModel { Id = order.ClientId })?[0]?.Login,
                 Subject = $"Заказ №{order.Id}",
@@ -140,7 +140,7 @@ namespace AbstractShipFactoryBusinessLogic.BusinessLogics
                 DateImplement = order.DateImplement,
                 Status = OrderStatus.Оплачен
             });
-            MailLogic.MailSendAsynс(new MailSendInfo
+            MailLogic.MailSendAsync(new MailSendInfo
             {
                 MailAddress = clientLogic.Read(new ClientBindingModel { Id = order.ClientId })?[0]?.Login,
                 Subject = $"Заказ №{order.Id}",

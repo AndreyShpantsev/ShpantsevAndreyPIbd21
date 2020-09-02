@@ -23,7 +23,7 @@ namespace AbstractShipFactoryBusinessLogic.BusinessLogics
             mailLogin = config.MailLogin;
             mailPassword = config.MailPassword;
         }
-        public static void MailSendAsynс(MailSendInfo info)
+        public static async void MailSendAsync(MailSendInfo info)
         {
             if (string.IsNullOrEmpty(smtpClientHost) || smtpClientPort == 0)
             {

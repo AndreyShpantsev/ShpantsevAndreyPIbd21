@@ -3,20 +3,25 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
 using System.Runtime.Serialization;
+using AbstractShipFactoryBusinessLogic.Attributes;
 
 namespace AbstractShipFactoryBusinessLogic.ViewModels
 {
-    public class ShipViewModel
+    public class ShipViewModel:BaseViewModel
     {
+        [Column(title: "Название судна", gridViewAutoSize: GridViewAutoSize.Fill)]
         [DataMember]
-        public int Id { get; set; }
-        [DataMember]
-        [DisplayName("Название судна")]
         public string ShipName { get; set; }
+        [Column(title: "Цена", width: 50)]
         [DataMember]
-        [DisplayName("Цена")]
         public decimal Price { get; set; }
         [DataMember]
         public Dictionary<int, (string, int)> ShipDetails { get; set; }
+        public override List<string> Properties() => new List<string>
+        {
+            "Id",
+            "ShipName",
+            "Price"
+        };
     }
 }
