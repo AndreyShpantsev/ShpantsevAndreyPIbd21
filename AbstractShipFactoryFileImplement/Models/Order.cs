@@ -18,6 +18,5 @@ namespace AbstractShipFactoryFileImplement.Models
         public OrderStatus Status { get; set; }
         public DateTime DateCreate { get; set; }
         public DateTime? DateImplement { get; set; }
-        public Implementer Implementer { get; set; }
     }
 }
