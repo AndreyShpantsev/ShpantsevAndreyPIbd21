@@ -149,5 +149,11 @@ namespace AbstractShipFactoryView
             var form = Container.Resolve<FormImplementers>();
             form.ShowDialog();
         }
+
+        private void сообщенияToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormMessages>();
+            form.ShowDialog();
+        }
     }
 }

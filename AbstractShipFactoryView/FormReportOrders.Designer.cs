@@ -105,8 +105,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(783, 537);
-            this.Controls.Add(this.dateTimePickerFrom);
             this.Controls.Add(this.dateTimePickerTo);
+            this.Controls.Add(this.dateTimePickerFrom);
             this.Controls.Add(this.buttonMakeOrder);
             this.Controls.Add(this.buttonSaveToExcel);
             this.Controls.Add(this.dataGridViewReport);
