@@ -20,11 +20,13 @@ namespace AbstractShipFactoryView
         [Dependency]
         public new IUnityContainer Container { get; set; }
         private readonly IShipLogic shiplogic;
+        private readonly IClientLogic clientLogic;
         private readonly MainLogic logicMain;
-        public FormCreateOrder(IShipLogic logicP, MainLogic logicM)
+        public FormCreateOrder(IShipLogic logicP, IClientLogic logicC, MainLogic logicM)
         {
             InitializeComponent(); 
             this.shiplogic = logicP;
+            this.clientLogic = logicC;
             this.logicMain = logicM;
         }
 
@@ -39,6 +41,14 @@ namespace AbstractShipFactoryView
                     comboBoxShip.ValueMember = "Id";
                     comboBoxShip.DataSource = list;
                     comboBoxShip.SelectedItem = null;
+                }
+                List<ClientViewModel> clientList = clientLogic.Read(null);
+                if (clientList != null)
+                {
+                    comboBoxClient.DisplayMember = "Login";
+                    comboBoxClient.ValueMember = "Id";
+                    comboBoxClient.DataSource = clientList;
+                    comboBoxClient.SelectedItem = null;
                 }
             }
             catch (Exception ex)

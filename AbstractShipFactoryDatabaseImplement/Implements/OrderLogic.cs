@@ -31,6 +31,7 @@ namespace AbstractShipFactoryDatabaseImplement.Implements
                     context.Orders.Add(element);
                 }
                 element.ShipId = model.ShipId == 0 ? element.ShipId : model.ShipId;
+                element.ClientId = model.ClientId.Value;
                 element.Count = model.Count;
                 element.Sum = model.Sum;
                 element.Status = model.Status;
@@ -61,16 +62,19 @@ model.Id);
             using (var context = new AbstractShipFactoryDatabase())
             {
                 return context.Orders
-            .Where(
-                    rec => model == null
-                    || (rec.Id == model.Id)
-                    || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
-                )
-            .Select(rec => new OrderViewModel
-            {
+                .Include(rec => rec.Ship)
+                .Where(rec => model == null || rec.Id == model.Id
+                || (model.DateFrom.HasValue && model.DateTo.HasValue
+                && rec.DateCreate >= model.DateFrom.Value
+                && rec.DateCreate <= model.DateTo.Value)
+                || model.ClientId.HasValue && model.ClientId == rec.ClientId)
+                .Select(rec => new OrderViewModel
+                {
                 Id = rec.Id,
                 ShipId = rec.ShipId,
                 ShipName = rec.Ship.ShipName,
+                ClientId = rec.ClientId,
+                ClientLogin = rec.Client.Login,
                 Count = rec.Count,
                 Sum = rec.Sum,
                 Status = rec.Status,

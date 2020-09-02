@@ -15,12 +15,15 @@ namespace AbstractShipFactoryListImplement
         public List<Order> Orders { get; set; }
         public List<Ship> Ships { get; set; }
         public List<ShipDetail> ShipDetails { get; set; }
+        public List<Client> Clients { get; set; }
+
         private DataListSingleton()
         { 
             Details = new List<Detail>();
             Orders = new List<Order>();
             Ships = new List<Ship>();
             ShipDetails = new List<ShipDetail>();
+            Clients = new List<Client>();
         }
         public static DataListSingleton GetInstance()
         {

@@ -35,6 +35,7 @@ namespace AbstractShipFactoryFileImplement.Implements
                 source.Orders.Add(element);
             }
             element.ShipId = model.ShipId;
+            element.ClientId = model.ClientId.Value;
             element.Count = model.Count;
             element.Sum = model.Sum;
             element.Status = model.Status;
@@ -58,11 +59,17 @@ namespace AbstractShipFactoryFileImplement.Implements
         public List<OrderViewModel> Read(OrderBindingModel model)
         {
             return source.Orders
-            .Where(rec => model == null || rec.Id == model.Id || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo))
+            .Where(rec => model == null || rec.Id == model.Id
+           || rec.DateCreate >= model.DateFrom.Value
+           && rec.DateCreate <= model.DateTo.Value
+           || model.ClientId.HasValue && model.ClientId == rec.ClientId)
             .Select(rec => new OrderViewModel
             {
                Id = rec.Id,
                ShipId = rec.ShipId,
+               ClientId = rec.ClientId,
+               ClientLogin = source.Clients.FirstOrDefault(cl =>
+               cl.Id == rec.Id)?.Login,
                ShipName = source.Ships.FirstOrDefault(mod =>
                mod.Id == rec.ShipId)?.ShipName,
                Count = rec.Count,

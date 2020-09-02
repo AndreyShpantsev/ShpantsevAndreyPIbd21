@@ -11,7 +11,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbstractShipFactoryListImpl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AbstractShipFactoryFileImplement", "AbstractShipFactoryFileImplement\AbstractShipFactoryFileImplement.csproj", "{492E4E1D-D7D9-448E-A179-EA29E855B123}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbstractShipFactoryDatabaseImplement", "AbstractShipFactoryDatabaseImplement\AbstractShipFactoryDatabaseImplement.csproj", "{2F5B74E9-DDD7-4885-A375-4103E5AFBCFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AbstractShipFactoryDatabaseImplement", "AbstractShipFactoryDatabaseImplement\AbstractShipFactoryDatabaseImplement.csproj", "{2F5B74E9-DDD7-4885-A375-4103E5AFBCFA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbstractShipFactoryRestApi", "AbstractShipFactoryRestApi\AbstractShipFactoryRestApi.csproj", "{158BA4D7-C5C6-48B3-954A-713836C1FF13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbstractShipFactoryClientView", "AbstractShipFactoryClientView\AbstractShipFactoryClientView.csproj", "{79AC0921-37A4-4C12-840D-57A6B4D18585}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{2F5B74E9-DDD7-4885-A375-4103E5AFBCFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F5B74E9-DDD7-4885-A375-4103E5AFBCFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F5B74E9-DDD7-4885-A375-4103E5AFBCFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{158BA4D7-C5C6-48B3-954A-713836C1FF13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{158BA4D7-C5C6-48B3-954A-713836C1FF13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{158BA4D7-C5C6-48B3-954A-713836C1FF13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{158BA4D7-C5C6-48B3-954A-713836C1FF13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79AC0921-37A4-4C12-840D-57A6B4D18585}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79AC0921-37A4-4C12-840D-57A6B4D18585}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79AC0921-37A4-4C12-840D-57A6B4D18585}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79AC0921-37A4-4C12-840D-57A6B4D18585}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

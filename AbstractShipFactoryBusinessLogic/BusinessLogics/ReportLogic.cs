@@ -41,7 +41,7 @@ namespace AbstractShipFactoryBusinessLogic.BusinessLogics
                     {
                         ShipName = " ",
                         DetailName = sh.Value.Item1,
-                        TotalCount = sh.Value.Item2
+                        
                     };
                     list.Add(record);
                 }

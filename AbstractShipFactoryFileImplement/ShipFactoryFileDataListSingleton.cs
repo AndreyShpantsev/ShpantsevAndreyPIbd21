@@ -16,10 +16,12 @@ namespace AbstractShipFactoryFileImplement
         private readonly string OrderFileName = "Order.xml";
         private readonly string ShipFileName = "Ship.xml";
         private readonly string ShipDetailFileName = "ShipDetail.xml";
+        private readonly string ClientFileName = "Client.xml";
         public List<Detail> Details { get; set; }
         public List<Order> Orders { get; set; }
         public List<Ship> Ships { get; set; }
         public List<ShipDetail> ShipDetails { get; set; }
+        public List<Client> Clients { get; set; }
 
         private ShipFactoryFileDataListSingleton()
         {
@@ -27,6 +29,7 @@ namespace AbstractShipFactoryFileImplement
             Orders = LoadOrders();
             Ships = LoadShips();
             ShipDetails = LoadShipDetails();
+            Clients = LoadClients();
         }
         public static ShipFactoryFileDataListSingleton GetInstance()
         {
@@ -42,8 +45,28 @@ namespace AbstractShipFactoryFileImplement
             SaveOrders();
             SaveShips();
             SaveShipDetails();
+            SaveClients();
         }
-
+        private List<Client> LoadClients()
+        {
+            var list = new List<Client>();
+            if (File.Exists(ClientFileName))
+            {
+                XDocument xDocument = XDocument.Load(ClientFileName);
+                var xElements = xDocument.Root.Elements("Client").ToList();
+                foreach (var elem in xElements)
+                {
+                    list.Add(new Client
+                    {
+                        Id = Convert.ToInt32(elem.Attribute("Id").Value),
+                        FIO = elem.Element("FIO").Value,
+                        Login = elem.Element("Login").Value,
+                        Password = elem.Element("Password").Value
+                    });
+                }
+            }
+            return list;
+        }
         private List<Detail> LoadDetails()
         {
             var list = new List<Detail>();
@@ -75,6 +98,7 @@ namespace AbstractShipFactoryFileImplement
                     {
                         Id = Convert.ToInt32(elem.Attribute("Id").Value),
                         ShipId = Convert.ToInt32(elem.Element("ShipId").Value),
+                        ClientId = Convert.ToInt32(elem.Element("ClientId").Value),
                         Count = Convert.ToInt32(elem.Element("Count").Value),
                         Sum = Convert.ToDecimal(elem.Element("Sum").Value),
                         Status = (OrderStatus)Enum.Parse(typeof(OrderStatus), elem.Element("Status").Value),
@@ -86,7 +110,6 @@ namespace AbstractShipFactoryFileImplement
             }
             return list;
         }
-
         private List<Ship> LoadShips()
         { 
             var list = new List<Ship>();
@@ -126,6 +149,22 @@ namespace AbstractShipFactoryFileImplement
             }
             return list;
         }
+
+        private void SaveClients()
+        {
+            if (Clients != null)
+            {
+                var xElement = new XElement("Clients");
+                foreach (var client in Clients)
+                {
+                    xElement.Add(new XElement("Client",
+                    new XAttribute("Id", client.Id),
+                    new XElement("FIO", client.FIO),
+                    new XElement("Login", client.Login),
+                    new XElement("Password", client.Password)));
+                }
+            }
+        }
         private void SaveDetails()
         {
             if (Details != null)
@@ -150,6 +189,7 @@ namespace AbstractShipFactoryFileImplement
                 {
                     xElement.Add(new XElement("Order",
                     new XAttribute("Id", order.Id),
+                    new XElement("ClientId", order.ClientId),
                     new XElement("ShipId", order.ShipId),
                     new XElement("Count", order.Count),
                     new XElement("Sum", order.Sum),

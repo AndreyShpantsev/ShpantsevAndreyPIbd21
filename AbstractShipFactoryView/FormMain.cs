@@ -51,6 +51,7 @@ namespace AbstractShipFactoryView
                         dataGridViewMain.Rows.Add(new object[]
                         {
                             order.Id,
+                            order.ClientLogin,
                             order.ShipName,
                             order.Count,
                             order.Sum,
@@ -171,6 +172,12 @@ namespace AbstractShipFactoryView
         private void OrdersToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormReportOrders>();
+            form.ShowDialog();
+        }
+
+        private void ClientsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormClients>();
             form.ShowDialog();
         }
     }
